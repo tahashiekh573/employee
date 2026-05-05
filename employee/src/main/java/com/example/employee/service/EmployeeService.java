@@ -42,7 +42,7 @@ public class EmployeeService {
             existing.setName(emp.getName());
             existing.setEmail(emp.getEmail());
             existing.setUserType(emp.getUserType());
-            existing.setDeptName(emp.getDeptName());
+            existing.setDepartment(emp.getDepartment()); 
             return repo.save(existing);
         }
         return null;
@@ -53,3 +53,5 @@ public class EmployeeService {
         return repo.findByEmail(email);
     }
 }
+
+

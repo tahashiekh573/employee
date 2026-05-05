@@ -13,7 +13,11 @@ public class EmployeeEntity {
     private String name;
     private String email;
     private String userType;
-    private String deptName;
+
+    // RELATION FIXED (IMPORTANT)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dept_id")
+    private DepartmentEntity department;
 
     // ===== GETTERS & SETTERS =====
 
@@ -49,11 +53,11 @@ public class EmployeeEntity {
         this.userType = userType;
     }
 
-    public String getDeptName() {
-        return deptName;
+    public DepartmentEntity getDepartment() {
+        return department;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public void setDepartment(DepartmentEntity department) {
+        this.department = department;
     }
 }
