@@ -17,7 +17,7 @@ public class EmployeeService {
     private EmployeeRepositor repo;
 
     @Autowired
-    private DepartmentRepository deptRepo; // ✅ ADD
+    private DepartmentRepository deptRepo; 
 
     // CREATE
     public EmployeeEntity save(EmployeeEntity emp) {
@@ -26,7 +26,7 @@ public class EmployeeService {
 
             int deptId = emp.getDepartment().getId();
 
-            // 🔥 DB se full department fetch
+            //  DB se full department fetch
             DepartmentEntity dept = deptRepo.findById(deptId).orElse(null);
 
             emp.setDepartment(dept);
@@ -64,7 +64,7 @@ public class EmployeeService {
 
                 int deptId = emp.getDepartment().getId();
 
-                // 🔥 again DB se fetch
+                //  again DB se fetch
                 DepartmentEntity dept = deptRepo.findById(deptId).orElse(null);
 
                 existing.setDepartment(dept);
