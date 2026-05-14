@@ -9,28 +9,28 @@ import com.example.employee.entity.DepartmentEntity;
 import com.example.employee.repository.DepartmentRepository;
 
 @RestController
-@RequestMapping("/api/departments")
+@RequestMapping("departments")
 public class DepartmentController {
 
     @Autowired
     private DepartmentRepository repo;
 
-    @PostMapping
+    @PostMapping("/fetchemployeeDep")
     public DepartmentEntity create(@RequestBody DepartmentEntity dept) {
         return repo.save(dept);
     }
 
-    @GetMapping
+    @GetMapping("/fetchemployeeDep")
     public List<DepartmentEntity> getAll() {
         return repo.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/fetchemployeeDep/{id}")
     public DepartmentEntity getById(@PathVariable int id) {
         return repo.findById(id).orElse(null);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/fetchemployeeDep/{id}")
     public String delete(@PathVariable int id) {
         repo.deleteById(id);
         return "Deleted Successfully";
