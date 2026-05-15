@@ -20,6 +20,7 @@ public class DepartmentEntity {
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
