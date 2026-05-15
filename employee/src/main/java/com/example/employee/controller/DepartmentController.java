@@ -9,13 +9,13 @@ import com.example.employee.entity.DepartmentEntity;
 import com.example.employee.repository.DepartmentRepository;
 
 @RestController
-@RequestMapping("departments")
+@RequestMapping("/api/departments")
 public class DepartmentController {
 
     @Autowired
     private DepartmentRepository repo;
 
-    @PostMapping("/fetchemployeeDep")
+    @PostMapping
     public DepartmentEntity create(@RequestBody DepartmentEntity dept) {
         return repo.save(dept);
     }
@@ -32,7 +32,7 @@ public class DepartmentController {
         return repo.findById(id).orElse(null);
     }
 
-    @DeleteMapping("/fetchemployeeDep/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable int id) {
         repo.deleteById(id);
         return "Deleted Successfully";
