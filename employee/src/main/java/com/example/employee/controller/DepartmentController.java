@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.employee.entity.DepartmentEntity; 
+import com.example.employee.entity.DepartmentEntity;
 import com.example.employee.repository.DepartmentRepository;
 
 @RestController
@@ -22,7 +22,9 @@ public class DepartmentController {
 
     @GetMapping("/fetchemployeeDep")
     public List<DepartmentEntity> getAll() {
-        return repo.findAll();
+        List<DepartmentEntity> list = repo.findAll();
+        System.out.println(list);
+        return list;
     }
 
     @GetMapping("/fetchemployeeDep/{id}")
