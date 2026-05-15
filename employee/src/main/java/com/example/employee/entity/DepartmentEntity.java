@@ -15,6 +15,7 @@ public class DepartmentEntity {
     private double salary;
 
     public int getId() {
+        System.out.println("ID: " + id);
         return id;
     }
 
@@ -23,6 +24,7 @@ public class DepartmentEntity {
     }
 
     public String getDeptName() {
+        System.out.println("Department Name: " + deptName);
         return deptName;
     }
 
@@ -31,6 +33,7 @@ public class DepartmentEntity {
     }
 
     public String getCodeName() {
+        System.out.println("Code Name: " + codeName);
         return codeName;
     }
 
@@ -39,6 +42,7 @@ public class DepartmentEntity {
     }
 
     public double getSalary() {
+        System.out.println("Salary: " + salary);
         return salary;
     }
 
