@@ -4,6 +4,7 @@
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.example.employee.entity.DepartmentEntity;
@@ -16,7 +17,7 @@ public class DepartmentService {
     private DepartmentRepository repo;
 
     // CREATE
-    public DepartmentEntity save(DepartmentEntity dept) {
+    public DepartmentEntity save(@NonNull DepartmentEntity dept) {
         return repo.save(dept);
     }
 

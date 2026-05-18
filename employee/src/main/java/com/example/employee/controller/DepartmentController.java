@@ -3,6 +3,7 @@ package com.example.employee.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.employee.entity.DepartmentEntity;
@@ -16,7 +17,7 @@ public class DepartmentController {
     private DepartmentRepository repo;
 
     @PostMapping
-    public DepartmentEntity create(@RequestBody DepartmentEntity dept) {
+    public DepartmentEntity create(@RequestBody @NonNull DepartmentEntity dept) {
         return repo.save(dept);
     }
 

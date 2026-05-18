@@ -3,6 +3,7 @@ package com.example.employee.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.example.employee.entity.UserEntity;
@@ -15,7 +16,7 @@ public class UserService {
     private UserRepository repo;
 
     // CREATE
-    public UserEntity save(UserEntity user) {
+    public UserEntity save(@NonNull UserEntity user) {
         return repo.save(user);
     }
 
