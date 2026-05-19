@@ -68,4 +68,9 @@ public class UserEntity {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+    }
 }
