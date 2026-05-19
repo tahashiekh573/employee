@@ -55,6 +55,6 @@ public class UserService {
 
     // GET BY EMAIL
     public UserEntity getEmail(String email) {
-        return repo.findByEmail(email);
+        return (UserEntity) repo.findByEmail(email);
     }
 }
