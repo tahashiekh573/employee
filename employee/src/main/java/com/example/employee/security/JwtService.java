@@ -13,39 +13,48 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    // Secret key (at least 32 characters for HS256)
-    private static final String SECRET = "my-secret-key-my-secret-key-my-secret-key";
+    private static final String SECRET =
+            "my-secret-key-my-secret-key-my-secret-key";
 
-    // Token validity (1 hour)
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60;
+    private static final long EXPIRATION_TIME =
+            1000 * 60 * 60; // 1 hour
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    // 🔥 Generate JWT Token
+    // Generate Token
     public String generateToken(String username) {
+
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(
+                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
+                )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // 👤 Extract username from token
+    // Extract Username
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // ⏳ Extract single claim
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+    // Extract Single Claim
+    public <T> T extractClaim(
+            String token,
+            Function<Claims, T> claimsResolver
+    ) {
+
+        Claims claims = extractAllClaims(token);
+
         return claimsResolver.apply(claims);
     }
 
-    // 📦 Extract all claims
+    // Extract All Claims
     private Claims extractAllClaims(String token) {
+
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
@@ -53,14 +62,26 @@ public class JwtService {
                 .getBody();
     }
 
-    // ✅ Validate token
-    public boolean isTokenValid(String token, String username) {
-        final String extractedUsername = extractUsername(token);
-        return (extractedUsername.equals(username) && !isTokenExpired(token));
+    // Validate Token
+    public boolean isTokenValid(
+            String token,
+            String username
+    ) {
+
+        String extractedUsername = extractUsername(token);
+
+        return extractedUsername.equals(username)
+                && !isTokenExpired(token);
     }
 
-    // ⛔ Check expiration
+    // Check Expiration
     private boolean isTokenExpired(String token) {
-        return extractClaim(token, Claims::getExpiration).before(new Date());
+
+        Date expiration = extractClaim(
+                token,
+                Claims::getExpiration
+        );
+
+        return expiration.before(new Date());
     }
 }
