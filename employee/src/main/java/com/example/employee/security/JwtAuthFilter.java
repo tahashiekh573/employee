@@ -31,6 +31,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
+    // LOGIN endpoint ko filter mat karo
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+
+        return request.getServletPath()
+                .startsWith("/auth");
+    }
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -43,6 +51,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
+        // Check Authorization Header
         if (authHeader != null &&
                 authHeader.startsWith("Bearer ")) {
 
@@ -50,25 +59,36 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             try {
 
+                // Extract username from token
                 username = jwtService.extractUsername(token);
 
             } catch (Exception e) {
 
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setStatus(
+                        HttpServletResponse.SC_UNAUTHORIZED
+                );
 
-                response.getWriter().write("Invalid JWT Token");
+                response.getWriter()
+                        .write("Invalid JWT Token");
 
                 return;
             }
         }
 
+        // Authenticate user
         if (username != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null) {
+                SecurityContextHolder.getContext()
+                        .getAuthentication() == null) {
 
             UserDetails userDetails =
-                    userDetailsService.loadUserByUsername(username);
+                    userDetailsService
+                            .loadUserByUsername(username);
 
-            if (jwtService.isTokenValid(token, userDetails.getUsername())) {
+            // Validate token
+            if (jwtService.isTokenValid(
+                    token,
+                    userDetails.getUsername()
+            )) {
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
@@ -87,6 +107,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         }
 
+        // Continue filter chain
         filterChain.doFilter(request, response);
     }
 }
