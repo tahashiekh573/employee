@@ -1,6 +1,7 @@
 package com.example.employee.controller;
 
 import com.example.employee.security.JwtService;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,10 +15,9 @@ public class JwtController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username) {
-
-        // Normally yahan password verify hota hai
-        // Abhi testing ke liye direct token generate kar rahe hain
+    public String login(
+            @RequestParam String username
+    ) {
 
         return jwtService.generateToken(username);
     }

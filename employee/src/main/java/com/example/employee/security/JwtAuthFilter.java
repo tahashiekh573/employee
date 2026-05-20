@@ -43,40 +43,32 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        // Check Bearer Token
         if (authHeader != null &&
                 authHeader.startsWith("Bearer ")) {
 
             token = authHeader.substring(7);
 
             try {
+
                 username = jwtService.extractUsername(token);
 
             } catch (Exception e) {
 
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-                response.getWriter()
-                        .write("Invalid JWT Token");
+                response.getWriter().write("Invalid JWT Token");
 
                 return;
             }
         }
 
-        // Authenticate User
         if (username != null &&
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication() == null) {
+                SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails =
-                    userDetailsService
-                            .loadUserByUsername(username);
+                    userDetailsService.loadUserByUsername(username);
 
-            if (jwtService.isTokenValid(
-                    token,
-                    userDetails.getUsername()
-            )) {
+            if (jwtService.isTokenValid(token, userDetails.getUsername())) {
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
@@ -90,8 +82,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                 .buildDetails(request)
                 );
 
-                SecurityContextHolder
-                        .getContext()
+                SecurityContextHolder.getContext()
                         .setAuthentication(authToken);
             }
         }
