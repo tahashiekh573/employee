@@ -55,7 +55,7 @@ public class UserEntity {
     }
 
     // ===== SET PASSWORD =====
-    public void setPassword(String password) {
+    public void  setPassword(String password) {
         this.password = password;
     }
 

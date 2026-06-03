@@ -8,4 +8,4 @@ import com.example.employee.entity.EmployeeEntity;
 public interface EmployeeRepositor extends JpaRepository<EmployeeEntity, Integer> {
 
     EmployeeEntity findByEmail(String email);
-}
+}           
